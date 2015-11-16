@@ -1,0 +1,4 @@
+added listener from exit command from openchord.
+openchord alst exit .java extended for the same.
+processManager brought into exitListener fro transfering of processess with IPs
+

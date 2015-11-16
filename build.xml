@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="JavaPM" default="compile" basedir=".">
+    
+    <property name="srcdir" value="src"/>
+  <property name="dstdir" value="build/classes"/>
+  <property name="impdir" value="lib"/>
+  <property name="distdir" value="dist"/>
+  <property name="dist_file" value="openchord_1.0.5.jar"/>  
+  <property name="docdir" value="docs/api"/>
+
+    <!-- 
+      Adding the compile 
+     --> 
+    <target name="compile">
+      <mkdir dir="build/classes" />
+      <javac srcdir="${srcdir}" destdir="${dstdir}" deprecation="Off" debug="true">
+        <include name="**/*.java"/>
+        <exclude name="**/CVS/*"/>
+        <classpath>
+          <fileset dir="${impdir}">
+            <include name="**/*.jar"/>
+            <include name="**/*.zip"/>
+          </fileset>
+        </classpath>  
+      </javac>
+    </target>
+
+    <target name="clean">
+      <delete dir="build" >
+      </delete>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="JavaPM.jar" basedir="${dstdir}">
+          <zipgroupfileset dir="${impdir}" includes="*.jar" />         
+            <manifest>
+                <attribute name="Main-Class" value="javapm.process.ProcessManager"/>
+            </manifest>
+        </jar>
+    </target>
+    
+</project>
