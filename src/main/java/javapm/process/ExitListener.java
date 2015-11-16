@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Iterator;
@@ -45,6 +46,17 @@ public class ExitListener implements Runnable{
             ProcessManager pm = ProcessManager.getInstance();
         ConcurrentLinkedQueue<javapm.process.MigratableProcess> processes = pm.processes;
         Iterator<javapm.process.MigratableProcess> it = processes.iterator();
+        
+        //notify client that this server is exiting
+        Socket sock = new Socket(pm.IP, 15442);
+        PrintStream sockOut = new PrintStream(sock.getOutputStream());
+        sockOut.println("ending JavaPM instance");
+        sockOut.println("try node 172.31.134.34");
+        
+        //before migrating rell how many nodes are there
+        sockOut.println(processes.size());
+        
+        //finally migrate whatever process left to the client
         while (it.hasNext()) {
             javapm.process.MigratableProcess process = it.next();
             long id=process.getId();
