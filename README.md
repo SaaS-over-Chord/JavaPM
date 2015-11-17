@@ -12,5 +12,6 @@ Added a class SampleGuiProcess that extends MigratableProcess (so that it can be
 
 * Instructions *
 - Run JavaPM.jar from the directory .
-- mvn exec:java -Dexec:mainClass=javapm.process.ProcessManager -Dexec.args="172.31.76.69"
+- mvn exec:java -Dexec:mainClass="javapm.process.ProcessManager" -Dexec.args="172.31.76.69"
+- at 134.34 JavaPM running at cd /home/user/Downloads/project_mega_1/JavaPM
 
