@@ -526,7 +526,7 @@ public class ProcessManager {
     public static void main(String[] args) {
         if(args.length==1)
         {
-            IP=args[1];
+            IP=args[0];
         }
         ProcessManager.getInstance().startServer();
         ProcessManager.getInstance().startExitListener();
