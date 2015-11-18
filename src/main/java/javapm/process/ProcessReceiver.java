@@ -3,6 +3,7 @@ package javapm.process;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,31 +42,39 @@ public class ProcessReceiver implements Runnable{
      * determine which class the process is, then send a
      * signal to the client to tell if the migration succeed.
      */
-        private void getfile(String fileName) throws FileNotFoundException, IOException
+        private String getfile() throws FileNotFoundException, IOException
         {
             byte[] mybytearray = new byte[1024*1024];
             InputStream is = clientSocket.getInputStream();
-            FileOutputStream fos = new FileOutputStream(fileName);
-            BufferedOutputStream bos = new BufferedOutputStream(fos);
             DataInputStream in = new DataInputStream(clientSocket.getInputStream());
             DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
-            int fileSize = in.readInt();
-            int bytesRead = is.read(mybytearray, 0,fileSize );
+            String fileName = in.readUTF();
+            System.out.println("filename is :"+ fileName);
+            FileOutputStream fos = new FileOutputStream(fileName);
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+ 
+            long fileSize = in.readLong();
+            int bytesRead = is.read(mybytearray, 0,(int)fileSize );
             System.out.println("filesize"+fileSize);
             bos.write(mybytearray, 0, bytesRead);
             System.out.println("bytesRead"+bytesRead);
             bos.close();
+            return fileName;
 
         }
 	public void run() {
 		try {
-                        getfile("i.txt");
-                        getfile("o.txt");
-			ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
+                        //getfile("i.txt");
+                        //getfile("o.txt");
+			getfile();
+                        getfile();
+                        String objectFileName = getfile();
+                        //ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
 			DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
-
+                        FileInputStream fis = new FileInputStream(objectFileName);
+                        ObjectInputStream in = new ObjectInputStream(fis); 
 			Object object = in.readObject();
-
+                        object = (MigratableProcess)object;
 			MigratableProcess process = null;
             if(object instanceof MigratableProcess){
             	process = (MigratableProcess)object;
