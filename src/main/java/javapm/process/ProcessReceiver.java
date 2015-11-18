@@ -54,14 +54,53 @@ public class ProcessReceiver implements Runnable{
             BufferedOutputStream bos = new BufferedOutputStream(fos);
  
             long fileSize = in.readLong();
-            int bytesRead = is.read(mybytearray, 0,(int)fileSize );
+            /*int bytesRead = is.read(mybytearray, 0,(int)fileSize );
             System.out.println("filesize"+fileSize);
-            bos.write(mybytearray, 0, bytesRead);
+           bos.write(mybytearray, 0, bytesRead);
             System.out.println("bytesRead"+bytesRead);
             bos.close();
+                    */
+            int readableBytes=(1024*25);        
+        int n=(int)(fileSize/readableBytes);
+        int r=(int)(fileSize%readableBytes);
+        byte b[];
+        //waitForSocket(fileLength);
+        for(int i=0;i<n;i++)
+        {
+            waitForSocket((1024*25));
+            b= new byte[1024*25];
+            in.read(b);
+            fos.write(b);
+        }
+        waitForSocket(r);
+        b=new byte[r];
+        in.read(b);
+        fos.write(b);        
             return fileName;
 
         }
+        
+        //added from neetesh
+        public void waitForSocket(long size) throws IOException
+            {
+            try
+            {      
+                InputStream is = clientSocket.getInputStream();
+                DataInputStream in = new DataInputStream(is);
+                for(int attempts=0;!(in.available()>=size);attempts++,Thread.sleep(10))
+                    if(attempts>1000)
+                    {
+                        System.out.println("error : timeout");
+                        System.exit(1);
+                    }
+            }    
+            catch(InterruptedException ex)
+            {
+                System.out.println("exception on waitforsocket" +ex);
+            }            
+        }
+        
+
 	public void run() {
 		try {
                         //getfile("i.txt");
