@@ -421,18 +421,32 @@ public class ProcessManager {
     private void sendFile(Socket socket,String filename) throws IOException
     {
         File myFile = new File(filename);
-        byte[] mybytearray = new byte[(int) myFile.length()];
+        byte[] myByteArray = new byte[1024];
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         out.writeUTF(filename);
         out.writeLong(myFile.length());
         System.out.println("file length: " + myFile.length());
-        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(myFile));
-        bis.read(mybytearray, 0, mybytearray.length);
-        OutputStream os = socket.getOutputStream();
+        FileInputStream fis = new FileInputStream(myFile);
+        //bis.read(mybytearray, 0, mybytearray.length);
+        OutputStream os = new BufferedOutputStream(socket.getOutputStream()) ;
         //os.write((int)myFile.length());
-        os.write(mybytearray, 0, mybytearray.length);
+        int readableBytes=1024*25;
+        int n=(int)(myFile.length()/readableBytes);
+        int r=(int)(myFile.length()%readableBytes);
+        byte b[];
+        for(int i=0;i<n;i++)
+        {            
+            b=new byte[readableBytes];
+            fis.read(b);
+            os.write(b);  
+            os.flush();
+        }
+        b=new byte[r];
+        fis.read(b);
+        os.write(b);  
         os.flush();
+        
         
     }
 //    

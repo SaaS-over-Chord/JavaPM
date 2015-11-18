@@ -36,7 +36,6 @@ public enum ProcessManagerCommand {
      * Quit the program
      */
     QUIT("quit"),
-
     /**
      * Unknown command
      */
