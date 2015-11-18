@@ -280,7 +280,6 @@ public class ProcessManager {
             case MG:
                 processMigrateCommand(args);
                 break;
-           
             case UNKNOWN:
             default:
                 System.out.println("unknown command '" + args[0] + "'");
@@ -425,7 +424,9 @@ public class ProcessManager {
         byte[] mybytearray = new byte[(int) myFile.length()];
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-        out.writeInt((int)myFile.length());
+        out.writeUTF(filename);
+        out.writeLong(myFile.length());
+        System.out.println("file length: " + myFile.length());
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(myFile));
         bis.read(mybytearray, 0, mybytearray.length);
         OutputStream os = socket.getOutputStream();
@@ -434,6 +435,59 @@ public class ProcessManager {
         os.flush();
         
     }
+//    
+//    private void startMigrating(Socket socket, MigratableProcess process, String hostName) throws IOException {
+//    	/**
+//         * adding code to transfer a file
+//         * 
+//         * 
+//         */
+//        String fileName = "i.txt";//to be modified later
+//        sendFile(socket, fileName);
+//        fileName = "o.txt";
+//        sendFile(socket, fileName);
+//        
+//        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+//    	DataInputStream in = new DataInputStream(socket.getInputStream());
+//        boolean status = false;
+//        try {    	
+//            out.writeObject((Object)process);
+//            status = in.readBoolean();
+//        }
+//    	catch (IOException e1) {
+//    		LOG.error(process.getClass().getSimpleName() +
+//                    "[" + process.getId() + "] migration error", e1);
+//    		restartProcess(process);
+//        	socket.close();
+//        	return;
+//    	}
+//        if (status) {
+//            System.out.println("Successfully migrated " +
+//                    process.getClass().getSimpleName() +
+//                    "[" + process.getId() + "]");
+//        } 
+//        else {
+//            System.out.println("Failed to migrate " +
+//                    process.getClass().getSimpleName() +
+//                    "[" + process.getId() + "]");
+//    		restartProcess(process);
+//        }
+//        try {
+//            in.close();
+//            out.close();
+//        }
+//        catch (IOException e) {
+//	        System.out.println("file close failed: " +
+//	                e.getMessage());
+//        }
+//        socket.close();
+//    }
+//
+//    
+    /*
+    changing startMigrating so as to send object as a file
+    */
+    
     private void startMigrating(Socket socket, MigratableProcess process, String hostName) throws IOException {
     	/**
          * adding code to transfer a file
@@ -444,12 +498,16 @@ public class ProcessManager {
         sendFile(socket, fileName);
         fileName = "o.txt";
         sendFile(socket, fileName);
+        fileName = "object"+process.id + ".ser";
+        FileOutputStream fos = new FileOutputStream(fileName);
+        ObjectOutputStream out = new ObjectOutputStream(fos);
         
-        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-    	DataInputStream in = new DataInputStream(socket.getInputStream());
+ 	DataInputStream in = new DataInputStream(socket.getInputStream());
+        
         boolean status = false;
         try {    	
-            out.writeObject(process);
+            out.writeObject((Object)process);
+            sendFile(socket, fileName);
             status = in.readBoolean();
         }
     	catch (IOException e1) {
@@ -471,8 +529,8 @@ public class ProcessManager {
     		restartProcess(process);
         }
         try {
-            in.close();
             out.close();
+            fos.close();
         }
         catch (IOException e) {
 	        System.out.println("file close failed: " +
@@ -480,6 +538,7 @@ public class ProcessManager {
         }
         socket.close();
     }
+
     
     /**
      * restart the process if migration fails.
