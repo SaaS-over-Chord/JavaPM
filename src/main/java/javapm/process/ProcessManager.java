@@ -600,6 +600,7 @@ public class ProcessManager {
         if(args.length==1)
         {
             IP=args[0];
+            System.out.println("System connected to IP: "+IP);
         }
         ProcessManager.getInstance().startServer();
         ProcessManager.getInstance().startExitListener();
