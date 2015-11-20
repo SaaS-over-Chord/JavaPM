@@ -25,8 +25,8 @@ import java.util.logging.Level;
  * interface. Other functions in this class contains generator of
  * process ID, callback function of process exit, etc,.
  *
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Pratyush Kumar(pratyush)
+ * @author Vasu Vardhan(vasu)
  * @see javapm.process.MigratableProcess
  * @see javapm.process.ProcessServer
  */

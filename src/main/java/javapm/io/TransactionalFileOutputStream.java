@@ -13,8 +13,8 @@ import java.io.*;
  * <code>RandomAccessFile</code> to seek the offset before
  * reading or writing.
  *
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Vasu Vardhan(vardhan)
+ * @author Pratyush Kumar(pratyush)
  * @see javapm.io.TransactionalFileInputStream
  * @see java.io.RandomAccessFile
  */

@@ -17,8 +17,8 @@ import java.io.Serializable;
  * <code>RandomAccessFile</code> to seek the offset before
  * reading or writing.
  *
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Vasu Vardhan(vardhan)
+ * @author Pratyush Kumar(pratyush)
  * @see javapm.io.TransactionalFileOutputStream
  * @see java.io.RandomAccessFile
  */

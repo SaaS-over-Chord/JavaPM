@@ -22,8 +22,8 @@ import javapm.io.TransactionalFileOutputStream;
  * This process demonstrates the flexibility of our framework,
  * to stop any at any specific point in a loop and migrate.
  * 
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Pratyush Kumar(pratyush)
+ * @author Vasu Vardhan(vardhan)
  * @see javapm.process.MigratableProcess
  * @see javapm.io.TransactionalFileInputStream
  * @see javapm.io.TransactionalFileOutputStream

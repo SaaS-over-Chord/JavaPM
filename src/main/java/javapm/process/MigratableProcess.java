@@ -21,8 +21,8 @@ import java.util.List;
  * We need to save the IO state during the migration.
  * So we use our transactional file IO stream classes.
  *
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Vasu Vardhan(vardhan)
+ * @author Pratyush Kumar(pratyush)
  * @see javapm.io.TransactionalFileInputStream
  * @see javapm.io.TransactionalFileOutputStream
  */

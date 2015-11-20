@@ -18,8 +18,8 @@ import java.net.SocketException;
  * the <code>run()</code> from the <code>Runnable</code>
  * interface.
  *
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Vasu Vardhan(vardhan)
+ * @author Pratyush Kumar(pratyush)
  * @see java.net.ServerSocket
  * @see java.net.Socket
  * @see javapm.process.MigratableProcess

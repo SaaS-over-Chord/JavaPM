@@ -19,8 +19,8 @@ import java.net.Socket;
  * one client. It implements the <code>run()</code> from
  * the <code>Runnable</code>interface.
  *
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Pratyush Kumar(pratyush)
+ * @author Vasu Vardhan(vardhan)
  * @see javapm.process.ProcessServer
  */
 public class ProcessReceiver implements Runnable{

@@ -23,8 +23,8 @@ import javax.swing.*;
 /**
  * The sample Gui process example of <code>MigratableProcess</code>
  * It is a proof of concept that a GIU application can be migrated using this framework
- * @author Pratyush Kumar(Pratz)
- * @author Vasu Vardhan(Vasu)
+ * @author Pratyush Kumar(pratyush)
+ * @author Vasu Vardhan(vardhan)
  * @see javapm.process.MigratableProcess
  * @see javapm.io.TransactionalFileInputStream
  * @see javapm.io.TransactionalFileOutputStream

@@ -3,8 +3,8 @@ package javapm.process;
 /**
  * The enum of process manager's commands
  *
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Pratyush Kumar(pratyush)
+ * @author Vasu Vardhan(vardhan)
  */
 public enum ProcessManagerCommand {
     /**

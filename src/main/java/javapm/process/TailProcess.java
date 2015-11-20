@@ -21,8 +21,8 @@ import javapm.io.TransactionalFileOutputStream;
  * This process demonstrates the flexibility of our framework,
  * to open and close multiple times in a process.
  * 
- * @author Jian Fang(jianf)
- * @author Fangyu Gao(fangyug)
+ * @author Vasu Vardhan(vardhan)
+ * @author Pratyush Kumar(pratyush)
  * @see javapm.process.MigratableProcess
  * @see javapm.io.TransactionalFileInputStream
  * @see javapm.io.TransactionalFileOutputStream
